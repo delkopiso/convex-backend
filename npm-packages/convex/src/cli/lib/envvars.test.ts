@@ -9,11 +9,11 @@ vi.mock("./utils/utils.js", () => ({
 
 const mockContext = {
 	fs: {
-		exists: vi.fn(),
-		readUtf8File: vi.fn(),
-		writeUtf8File: vi.fn(),
+		exists: vi.fn() as any,
+		readUtf8File: vi.fn() as any,
+		writeUtf8File: vi.fn() as any,
 	},
-	crash: vi.fn(),
+	crash: vi.fn() as any,
 } as unknown as Context;
 
 const originalProcessEnv = process.env;
@@ -30,7 +30,7 @@ afterEach(() => {
 test("writeConvexUrlToEnvFile process.env behavior", async () => {
 	// Test core functionality: skip file creation when env var exists with correct value
 	process.env.CONVEX_URL = "https://test.convex.cloud";
-	mockContext.fs.exists.mockReturnValue(false);
+	(mockContext.fs.exists as any).mockReturnValue(false);
 
 	let result = await writeConvexUrlToEnvFile(mockContext, "https://test.convex.cloud");
 	expect(result).toBeNull(); // Should skip file creation

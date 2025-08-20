@@ -3,7 +3,7 @@ import { changesToEnvVarFile, changesToGitIgnore, writeDeploymentEnvVar } from "
 import { Context } from "../../bundler/context.js";
 
 vi.mock("./envvars.js", async (importOriginal) => {
-  const actual = await importOriginal();
+  const actual = (await importOriginal()) as any;
   return {
     ...actual,
     gitIgnoreEnvVarFile: vi.fn().mockResolvedValue(false),
